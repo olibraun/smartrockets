@@ -66,6 +66,7 @@ function Population(){
       var parentA = random(this.matingpool).dna;
       var parentB = random(this.matingpool).dna;
       var child = parentA.crossover(parentB);
+      child.mutation();
       newRockets[i] = new Rocket(child);
     }
     this.rockets = newRockets;
@@ -102,6 +103,15 @@ function DNA(genes){
       }
     }
     return new DNA(newgenes);
+  }
+
+  this.mutation = function(){
+    for(var i=0; i<this.genes.length; i++){
+      if(ranomd(1) < 0.01){
+        this.genes[i] = p5.Vector.random2D();
+        this.genes[i].setMag(0.1);
+      }
+    }
   }
 }
 
