@@ -18,7 +18,9 @@ function draw() {
   lifeP.html(count);
 
   if(count == lifespan){
-    population = new Population();
+    //population = new Population();
+    population.evaluate();
+    population.selection();
     count = 0;
   }
 
@@ -51,7 +53,7 @@ function Population(){
     for(var i=0; i< this.popsize; i++){
       var n = this.rockets[i].fitness * 100;
       for(var j=0; j< this.popsize; j++){
-        this.matingpool.add(this.rockets[i]);
+        this.matingpool.push(this.rockets[i]);
       }
     }
   }
@@ -64,6 +66,7 @@ function Population(){
       var child = parentA.crossover(parentB);
       newRockets[i] = new Rocket(child);
     }
+    this.rockets = newRockets;
   }
 
   this.run = function(){
@@ -92,7 +95,7 @@ function DNA(genes){
       if(i>mid){
         newgenes[i] = this.genes[i];
       }else{
-        newgenes[i] = this.partner[i];
+        newgenes[i] = partner.genes[i];
       }
     }
     return new DNA(newgenes);
@@ -115,7 +118,7 @@ function Rocket(dna){
   }
 
   this.calcFitness = function(){
-    var d = disct(this.pos.x,this.pos.y,target.x,target.y);
+    var d = dist(this.pos.x,this.pos.y,target.x,target.y);
     this.fitness = map(d, 0, width, width, 0);
   }
 
