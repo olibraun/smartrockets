@@ -1,9 +1,14 @@
 var population;
 var lifespan = 400;
 var lifeP;
+var genP;
+var maxP;
 var count = 0;
 var target;
 var maxforce = 0.2;
+
+var generationCount = 1;
+var globalMaxFit = 0;
 
 var rx = 100;
 var ry = 150;
@@ -15,13 +20,17 @@ function setup() {
   rocket = new Rocket();
   population = new Population();
   lifeP = createP();
+  genP = createP();
+  maxP = createP();
   target = createVector(width/2,50);
 }
 
 function draw() {
   background(0);
   population.run();
-  lifeP.html(count);
+  lifeP.html("Lifespan: " + count + "/" + lifespan);
+  genP.html("Generation: " + generationCount);
+  maxP.html("Current maximum fitness: " + globalMaxFit);
 
   if(count == lifespan){
     //population = new Population();
@@ -64,7 +73,7 @@ function Population(){
         this.matingpool.push(this.rockets[i]);
       }
     }
-    createP(maxfit);
+    globalMaxFit = maxfit;
   }
 
   this.selection = function(){
@@ -77,6 +86,7 @@ function Population(){
       newRockets[i] = new Rocket(child);
     }
     this.rockets = newRockets;
+    generationCount++;
   }
 
   this.run = function(){
