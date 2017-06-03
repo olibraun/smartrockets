@@ -35,6 +35,12 @@ function Population(){
     this.rockets[i] = new Rocket();
   }
 
+  this.evaluate = function(){
+    for(var i=0; i< this.popsize; i++){
+      this.rockets[i].calcFitness();
+    }
+  }
+
   this.run = function(){
     for(var i=0; i<this.popsize; i++){
       this.rockets[i].update();
@@ -56,9 +62,15 @@ function Rocket(){
   this.vel = createVector();
   this.acc = createVector();
   this.dna = new DNA();
+  this.fitness = 0;
 
   this.applyForce = function(force){
     this.acc.add(force);
+  }
+
+  this.calcFitness = function(){
+    var d = disct(this.pos.x,this.pos.y,target.x,target.y);
+    this.fitness = 1/d;
   }
 
   this.update = function(){
