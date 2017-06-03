@@ -38,7 +38,6 @@ function Population(){
   }
 
   this.evaluate = function(){
-    console.log("evaluate");
     var maxfit = 0;
     for(var i=0; i < this.popsize; i++){
       this.rockets[i].calcFitness();
@@ -60,7 +59,6 @@ function Population(){
   }
 
   this.selection = function(){
-    console.log("selection");
     var newRockets = [];
     for(var i=0; i<this.rockets.length; i++){
       var parentA = random(this.matingpool).dna;
@@ -92,7 +90,6 @@ function DNA(genes){
   }
 
   this.crossover = function(partner){
-    console.log("crossover");
     var newgenes = [];
     var mid = floor(random(this.genes.length));
     for(var i=0; i<this.genes.length; i++){
