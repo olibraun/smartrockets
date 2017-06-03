@@ -4,6 +4,11 @@ var lifeP;
 var count = 0;
 var target;
 
+var rx = 100;
+var ry = 150;
+var rw = 200;
+var rh = 10;
+
 function setup() {
   createCanvas(400,300);
   rocket = new Rocket();
@@ -23,6 +28,9 @@ function draw() {
     population.selection();
     count = 0;
   }
+
+  fill(255);
+  rect(rx,ry,rw,rh);
 
   count++;
   ellipse(target.x,target.y,16,16);
@@ -117,6 +125,7 @@ function Rocket(dna){
   this.vel = createVector();
   this.acc = createVector();
   this.completed = false;
+  this.crashed = false;
   if(dna){
     this.dna = dna;
   }else{
@@ -134,6 +143,9 @@ function Rocket(dna){
     if(this.completed){
       this.fitness *= 10;
     }
+    if(this.crashed){
+      this.fitness = 1;
+    }
   }
 
   this.update = function(){
@@ -144,8 +156,12 @@ function Rocket(dna){
       this.pos = target.copy();
     }
 
+    if(this.pos.x > rx && this.pos.x < rx + rw && this.pos.y > ry && this.pos.y < ry + rh){
+      this.crashed = true;
+    }
+
     this.applyForce(this.dna.genes[count]);
-    if(!this.completed){
+    if(!this.completed && !this.crashed){
       this.vel.add(this.acc);
       this.pos.add(this.vel);
       this.acc.mult(0);
