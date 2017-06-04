@@ -10,6 +10,8 @@ var maxforce = 0.2;
 var generationCount = 1;
 var globalMaxFit = 0;
 
+var allCrashed = false;
+
 var rx = 100;
 var ry = 150;
 var rw = 200;
@@ -37,6 +39,17 @@ function draw() {
     population.evaluate();
     population.selection();
     count = 0;
+  }
+
+  //Check to see if all rockets have crashed in order to cut off generation early
+  allCrashed=true;
+  for(var i=0; i<population.rockets.length; i++){
+    if(!population.rockets[i].crashed){
+      allCrashed = false;
+    }
+  }
+  if(allCrashed){
+    count = lifespan-1;
   }
 
   fill(255);
