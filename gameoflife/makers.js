@@ -113,3 +113,23 @@ function makePentomino(){
     cells[pt[0]][pt[1]].alive = true;
   }
 }
+
+  function makeGliderGun(){
+    clearall();
+    var points = [];
+    //Left square
+    points.push([7,25],[8,25],[7,26],[8,26]);
+    //First thing
+    points.push([17,25],[17,26],[17,27],[18,24],[18,28],[19,23],[20,23],[19,29],[20,29]);
+    points.push([21,26],[22,24],[22,28],[23,25],[23,26],[23,27],[24,26]);
+    //Second thing
+    points.push([27,23],[27,24],[27,25],[28,23],[28,24],[28,25]);
+    points.push([29,22],[29,26],[31,21],[31,22],[31,26],[31,27]);
+    //Right square
+    points.push([41,23],[41,24],[42,23],[42,24]);
+    //Make
+    for(var i=0; i < points.length; i++){
+      var pt = points[i];
+      cells[pt[0]][pt[1]].alive = true;
+    }
+  }

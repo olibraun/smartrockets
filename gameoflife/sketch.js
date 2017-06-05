@@ -11,6 +11,7 @@ var stationaryButton;
 var oscillatorsButton;
 var explosionButton;
 var pentominoButton;
+var gliderGunButton;
 
 function make2DArray(cols,rows){
   var arr = new Array(cols);
@@ -71,6 +72,8 @@ function setup() {
   explosionButton.mousePressed(makeExplosion);
   pentominoButton = createButton('f-Pentomino');
   pentominoButton.mousePressed(makePentomino);
+  gliderGunButton = createButton('Glider gun');
+  gliderGunButton.mousePressed(makeGliderGun);
 }
 
 function clearall(){
