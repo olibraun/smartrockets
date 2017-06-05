@@ -1,5 +1,5 @@
-var xsize = 15;
-var ysize = 15;
+var xsize = 12;
+var ysize = 12;
 var cells;
 
 var cbox;
@@ -33,7 +33,7 @@ function mousePressed() {
 }
 
 function setup() {
-  createCanvas(601,601);
+  createCanvas(721,721);
   background(51);
   var ncols = floor((width-1)/xsize);
   var nrows = floor((height-1)/xsize);
