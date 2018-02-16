@@ -43,11 +43,11 @@ function draw() {
 
   //Check to see if all rockets have crashed in order to cut off generation early
   allCrashed=true;
-  for(var i=0; i<population.rockets.length; i++) {
-    if(!population.rockets[i].crashed) {
+  population.rockets.forEach(rocket => {
+    if(!rocket.crashed) {
       allCrashed = false;
     }
-  }
+  });
   if(allCrashed) {
     count = lifespan-1;
   }
