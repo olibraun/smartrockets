@@ -1,39 +1,42 @@
-function Population(){
-  this.rockets = [];
-  this.popsize = 50;
-  this.matingpool = [];
+class Population{
+  constructor() {
+    this.rockets = [];
+    this.popsize = 50;
+    this.matingpool = [];
 
-  for(var i=0; i<this.popsize; i++){
-    this.rockets[i] = new Rocket();
+    for(let i=0; i<this.popsize; i++) {
+      this.rockets[i] = new Rocket();
+    }
   }
 
-  this.evaluate = function(){
-    var maxfit = 0;
-    for(var i=0; i < this.popsize; i++){
+  evaluate() {
+    let maxfit = 0;
+    for(let i=0; i < this.popsize; i++) {
       this.rockets[i].calcFitness();
-      if(this.rockets[i].fitness > maxfit){
+      if(this.rockets[i].fitness > maxfit) {
         maxfit = this.rockets[i].fitness;
       }
     }
-    for(var i=0; i < this.popsize; i++){
+
+    for(let i=0; i < this.popsize; i++) {
       this.rockets[i].fitness /= maxfit;
     }
     this.matingpool = [];
-    for(var i=0; i < this.popsize; i++){
-      var n = this.rockets[i].fitness * 100;
-      for(var j=0; j < n; j++){
+    for(let i=0; i < this.popsize; i++) {
+      let n = this.rockets[i].fitness * 100;
+      for(let j=0; j < n; j++) {
         this.matingpool.push(this.rockets[i]);
       }
     }
     globalMaxFit = maxfit;
   }
 
-  this.selection = function(){
-    var newRockets = [];
-    for(var i=0; i<this.rockets.length; i++){
-      var parentA = random(this.matingpool).dna;
-      var parentB = random(this.matingpool).dna;
-      var child = parentA.crossover(parentB);
+  selection() {
+    let newRockets = [];
+    for(let i=0; i<this.rockets.length; i++) {
+      let parentA = random(this.matingpool).dna;
+      let parentB = random(this.matingpool).dna;
+      let child = parentA.crossover(parentB);
       child.mutation();
       newRockets[i] = new Rocket(child);
     }
@@ -41,8 +44,8 @@ function Population(){
     generationCount++;
   }
 
-  this.run = function(){
-    for(var i=0; i<this.popsize; i++){
+  run() {
+    for(let i=0; i<this.popsize; i++) {
       this.rockets[i].update();
       this.rockets[i].show();
     }
