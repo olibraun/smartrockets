@@ -1,4 +1,4 @@
-class Population{
+class Population {
   constructor() {
     this.rockets = [];
     this.popsize = 50;
