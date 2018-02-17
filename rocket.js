@@ -14,6 +14,8 @@ class Rocket {
     this.completed = false;
     this.crashed = false;
     this.fitness = 0;
+    this.timeSet = false;
+    this.timeToTarget = lifespan;
   }
 
   applyForce(force) {
@@ -23,22 +25,30 @@ class Rocket {
   calcFitness() {
     let d = dist(this.pos.x, this.pos.y, target.x, target.y);
     this.fitness = map(d, 0, width, width, 0);
-    //Try to promote passing the obstacle
-    if(this.pos.y < ry) {
+    // Try to promote passing the obstacle
+    if(this.pos.y < ry - 5) {
       this.fitness *= 2;
     }
     if(this.completed) {
-      this.fitness *= 10;
+      this.fitness *= 8;
     }
     if(this.crashed) {
       this.fitness /= 10;
     }
+    // Reward the rockets for reaching the target sooner
+    this.fitness *= (1/(this.timeToTarget / lifespan));
   }
 
   update() {
     let d = dist(this.pos.x, this.pos.y, target.x, target.y);
     if(d < 10) {
       this.completed = true;
+      // Save the time it takes to reach the target
+      if(!this.timeSet) {
+        this.timeToTarget = count;
+        this.timeSet = true;
+        console.log(this.timeToTarget);
+      }
       this.pos = target.copy();
     }
 
