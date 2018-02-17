@@ -18,7 +18,7 @@ class DNA {
     let newgenes = [];
     let mid = floor(random(this.genes.length));
     for(let i=0; i < this.genes.length; i++) {
-      if(i>mid) {
+      if(i > mid) {
         newgenes[i] = this.genes[i];
       } else {
         newgenes[i] = partner.genes[i];
