@@ -27,6 +27,10 @@ function setup() {
   target = createVector(width/2, 50);
 }
 
+function mouseClicked() {
+  rx = mouseX;
+}
+
 function draw() {
   background(0);
   population.run();
